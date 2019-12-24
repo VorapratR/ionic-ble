@@ -1,14 +1,27 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      status: {{ statusMessage }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-button (click)="ionViewDidEnter()">Scanner BLU</ion-button>
+  <ion-button (click)="BluetoothLU()">Scanner BluetoothLU</ion-button>
+  <ion-list>
+    <ion-card *ngFor="let device of devices" >
+      <ion-card-header *ngIf='device.name === uuidName'>
+        <ion-card-subtitle>RSSI: {{ device.rssi }}</ion-card-subtitle>
+        <ion-card-title >{{ device.name || 'Unnamed' }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf='device.name === uuidName'>
+        <p *ngIf='device.id !== uuid' style="color: red;">ID: {{ device.id }}</p>
+        <p *ngIf='device.id === uuid' style="color:blue;">ID: {{ device.id }}</p>
+        Services: {{device.services || '---'}}
+        Advertising: {{device.advertising.value || '---'}}
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
 </ion-content>

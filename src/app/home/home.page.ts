@@ -1,7 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { BLE } from '@ionic-native/ble/ngx';
 import { Platform, NavController, ToastController } from '@ionic/angular';
-import { BluetoothLE, ScanParams } from '@ionic-native/bluetooth-le/ngx';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -9,17 +8,13 @@ import { BluetoothLE, ScanParams } from '@ionic-native/bluetooth-le/ngx';
 })
 export class HomePage {
   uuidName = 'estimote';
-  uuid = 'B9407F30-F5F8-466E-AFF9-25556B57FE6D';
-  id =   '0AD1257B-B7F8-626C-CBA1-049C1FC52D19';
   devices: any[] = [];
   statusMessage: string;
-  test: ScanParams;
   constructor(
     public navCtrl: NavController,
     public toastCtrl: ToastController,
     public ble: BLE,
     public plt: Platform,
-    public bluetoothle: BluetoothLE,
     public ngZone: NgZone
   ) {
 
@@ -28,18 +23,6 @@ export class HomePage {
   ionViewDidEnter() {
     console.log('ionViewDidEnter');
     this.scan();
-  }
-
-  BluetoothLU() {
-    this.plt.ready().then((readySource) => {
-
-      console.log('Platform ready from', readySource);
-      this.bluetoothle.startScan(this.test).subscribe(
-        data => console.log('BlueTLU' + data),
-        error => console.error(error)
-      )
-     });
-
   }
 
   scan() {
@@ -61,7 +44,6 @@ export class HomePage {
     });
   }
 
-  // If location permission is denied, you'll end up here
   scanError(error) {
     this.setStatus('Error ' + error);
     const toast = this.toastCtrl.create({

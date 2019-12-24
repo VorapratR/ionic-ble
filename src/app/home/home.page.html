@@ -8,7 +8,6 @@
 
 <ion-content>
   <ion-button (click)="ionViewDidEnter()">Scanner BLU</ion-button>
-  <ion-button (click)="BluetoothLU()">Scanner BluetoothLU</ion-button>
   <ion-list>
     <ion-card *ngFor="let device of devices" >
       <ion-card-header *ngIf='device.name === uuidName'>
@@ -16,8 +15,7 @@
         <ion-card-title >{{ device.name || 'Unnamed' }}</ion-card-title>
       </ion-card-header>
       <ion-card-content *ngIf='device.name === uuidName'>
-        <p *ngIf='device.id !== uuid' style="color: red;">ID: {{ device.id }}</p>
-        <p *ngIf='device.id === uuid' style="color:blue;">ID: {{ device.id }}</p>
+        <p style="color: red;">ID: {{ device.id }}</p>
         Services: {{device.services || '---'}}
         Advertising: {{device.advertising.value || '---'}}
       </ion-card-content>
